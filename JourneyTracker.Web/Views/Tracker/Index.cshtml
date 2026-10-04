@@ -1,0 +1,68 @@
+﻿@model IEnumerable<JourneyTracker.Web.Models.StudyLog>
+@{
+    ViewData["Title"] = "Gelişim Takip Paneli";
+    double percent = Convert.ToDouble(ViewBag.ProgressPercentage);
+    string barColor = "bg-danger";
+    if (percent > 20 && percent <= 50)
+    {
+        barColor = "bg-warning";
+    }
+     else if (percent > 50) {
+        barColor = "bg-success";
+     }
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-3">
+<div class="card-body p-5 text-center">
+    <h2 class="fw-bold text-dark mb-4">9 Aylık Yazılım Yolculuğum</h2>
+<div class="row justify-content-center mb-5">
+<div class="col-md-8">
+<div class="p-4 bg-light rounded-3 border text-start">
+<h5 class="fw-bold mb-3">Bugün Kaç Saat Çalıştın?</h5>
+<form action="/Tracker/Create" method="post">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <label class="form-label small text-muted">Çalışılan Saat</label>
+            <input type="number" step="0.1" name="HoursSpent" class="form-control" placeholder="Örn: 3.5" required />
+        </div>
+<div class="col-md-8">
+    <label class="form-label small text-muted">Çalışılan Konu</label>
+<input type="text" name="TopicCovered" class="form-control"  placeholder="Örn: Entity Framework Core" required />
+</div>
+<div class="col-12">
+    <label class="form-label small etxt-muted">Notlar / Alınan Hatalar</label>
+<textarea name="Notes" class="form-control" rows="2" placeholder="Bugün neler öğrendin veya hangi hatayı çözdün?"></textarea>
+
+</div>
+<div class="col-12 text-end">
+    <button type="submit" class="btn btn-success fw-bold px-4">Kaydet ve İlerlemeyi Güncelle</button>
+</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+<div class="progress mb-4" style="height: 35px; border-radius: 20px">
+    <div class="progress-bar @barColor progress-bar-striped progres-bar-animated fw-bold fs-5"
+                     role="progressbar" style="width: @percent%" aria-valuenow="@percent" aria-valuemin="0" aria-valuemax="100">
+                    %@percent Tamamlandı
+</div>
+</div>
+<div class="row mt-4">
+<div class="col-md-6">
+<div class="p-3 bg-light rounded-3 border">
+    <h5 class="text-muted">Toplam Çalışılan Saat</h5>
+    <h3 class="fw-bold text-primary">@ViewBag.TotalHours Saat</h3>
+</div>
+</div>
+                <div class="col-md-6">
+                    <div class="p-3 bg-light rounded-3 border">
+                        <h5 class="text-muted">9 Aylık Hedef</h5>
+                        <h3 class="fw-bold text-secondary">700 Saat</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
